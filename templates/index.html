@@ -1,21 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style.css') }}">
-</head>
-<body>
-	<div class="header">
-		<span>Блог платформа</span>
-	</div>
+{% extends 'layout.html' %}
 
+{% block content %}
 	<div class="post-container">
 		{% for post in posts %}
 		<div class="post">
-			<h2>{{ post[1] }}</h2>
-			<span>{{ post[2] }}</span>
+			<span class="post-header">{{ post[1] }}</span><br>
+			<span>{{ post[2] }}</span><br>
+			<a href="./post/{{ post[0] }}">Читать дальше</a>
 		</div>
 		{% endfor %}
 	</div>
-</body>
-</html>
+{% endblock %}

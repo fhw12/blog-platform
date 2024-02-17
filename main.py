@@ -1,4 +1,5 @@
 from flask import Flask
+import flask_login
 
 from routes import Routes
 

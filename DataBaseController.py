@@ -4,11 +4,9 @@ import PostModel
 
 class DBController:
 	def __init__(self):
-		#pass
-		#self.connection = sqlite3.connect("main.db")
 		self.postModel = PostModel.PostModel()
 
-	def addPosts(self, title, content):
+	def addPost(self, title, content):
 		self.postModel.addPost(title, content)
 
 	def getPostById(self, postID):
