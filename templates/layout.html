@@ -9,7 +9,14 @@
 <body>
 	<div class="header">
 		<span>Блог платформа</span>
-		<a class="header-button" href="./auth">Войти в аккаунт</a>
+
+		{% if session["username"]: %}
+			<a class="header-button" href="./profile">Профиль</a>
+		{% else %}
+			<a class="header-button" href="./auth">Войти в аккаунт</a>
+		{% endif %}
+
+		<a class="header-button" href="./newPost">new post</a>
 	</div>
 
 	{% block content %}

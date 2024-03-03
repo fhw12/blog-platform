@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container">
+	{% if session["username"]: %}
+		<span>Ваше имя: </span>
+        <span>{{ session["username"] }}</span>
+        <a href="{{ url_for('logout') }}">Log out</a>
+	{% else %}
+		<span>Вы не вошли в аккаунт!</span>
+	{% endif %}
+</div>
+{% endblock %}

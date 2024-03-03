@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+	<div class="container">
+		<form method="post" action="/sendNewPost">
+			<label for="title">Title:</label><br>
+			<input type="text" name="title"><br><br>
+			<label for="content">Text:</label><br>
+			<input type="text" name="content"><br><br>
+			<input type="submit" name="send" value="send">
+		</form>
+	</div>
+{% endblock %} 

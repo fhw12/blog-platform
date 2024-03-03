@@ -1,12 +1,12 @@
 body {
-	background: rgb(200, 200, 220);
+	background: #FBF1C7;
 	font-family: sans-serif;
 	margin: 0;
 	user-select: none;
 }
 
 .header{
-	background: rgb(150, 150	, 230);
+	background: #ffffffaa;
 	padding: 10px;
 }
 
@@ -33,7 +33,7 @@ body {
 }
 
 .post {
-	background-color: #ffffff;
+	background-color: #ffffffaa;
 	border-radius: 10px;
 	overflow: hidden;
 	padding: 20px;
