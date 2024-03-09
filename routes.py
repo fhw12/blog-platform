@@ -1,6 +1,5 @@
 from flask import render_template, request, session, redirect, url_for
-from DataBaseController import DBController
-from SessionController import SessionController
+from db.DataBaseController import DBController
 
 class Routes:
 	def __init__(self, app):
@@ -61,6 +60,8 @@ class Routes:
 
 			if 'username' in session:
 				self.dbController.addPost(title, content)
-				return 'Your post has been added!'
+				#return 'Your post has been added!'
+				return redirect(url_for('index'))
 			else:
-				return 'Error. You need to log into the app to be able to create posts!'
+				#return 'Error. You need to log into the app to be able to create posts!'
+				return redirect(url_for('index'))

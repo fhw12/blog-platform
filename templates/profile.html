@@ -4,8 +4,8 @@
 <div class="container">
 	{% if session["username"]: %}
 		<span>Ваше имя: </span>
-        <span>{{ session["username"] }}</span>
-        <a href="{{ url_for('logout') }}">Log out</a>
+        <span>{{ session["username"] }}</span><br><br>
+        <a href="{{ url_for('logout') }}">Выйти</a>
 	{% else %}
 		<span>Вы не вошли в аккаунт!</span>
 	{% endif %}

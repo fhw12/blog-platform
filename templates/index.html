@@ -3,11 +3,29 @@
 {% block content %}
 	<div class="post-container">
 		{% for post in posts %}
-		<div class="post">
+		<!-- <div class="post">
 			<span class="post-header">{{ post[1] }}</span><br>
 			<span>{{ post[2] }}</span><br>
 			<a href="./post/{{ post[0] }}">Читать дальше</a>
-		</div>
+		</div> -->
+			<div class="pb-2">
+				<div class="card" style="width: 100%;">
+					<div class="card-body">
+						<h5 class="card-title">{{ post[1] }}</h5>
+						<h6 class="card-subtitle mb-2 text-body-secondary">05.03.2024 (Тест)</h6>
+						<p class="card-text">{{ post[2] }}</p>
+						<a href="./post/{{ post[0] }}" class="card-link">Читать дальше</a>
+					</div>
+				</div>
+			</div>
+<!-- <br>
+			<div class="p-4 p-md-3 mb-2 rounded text-body-emphasis bg-body-secondary">
+				<div class="col-lg-6 px-0">
+				  <h1 class="display-5 fst-italic">{{ post[1] }}</h1>
+				  <p class="my-1">{{ post[2] }}</p>
+				  <p class="mb-0"><a href="./post/{{ post[0] }}" class="text-body-emphasis fw-bold">Читать дальше</a></p>
+				</div>
+			  </div> -->
 		{% endfor %}
 	</div>
 {% endblock %}
