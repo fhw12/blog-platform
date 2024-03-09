@@ -9,6 +9,7 @@ class WebApp:
 		self.app = Flask(__name__)
 		self.app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 		self.routes = Routes(self.app)
+		#self.app.run(debug = True)
 		self.app.run(debug = True, host="0.0.0.0")
 
 if __name__ == '__main__':

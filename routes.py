@@ -39,7 +39,17 @@ class Routes:
 		def login():
 			username = request.form['username']
 			password = request.form['password']
-			session['username'] = username
+
+			user = self.dbController.getUserByUsername(username)
+
+			if user:
+				if user[0][2] == password:
+					session['username'] = username
+				else:
+					return "Error password"
+			else:
+				return "Error username"
+
 			return redirect(url_for('index'))
 
 		@self.app.route('/logout')
