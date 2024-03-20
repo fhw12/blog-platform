@@ -3,11 +3,11 @@
 {% block content %}
 	<div class="container">
 		<form method="post" action="/login">
-			<label for="username">Логин:</label><br>
-			<input type="text" name="username"><br><br>
-			<label for="password">Пароль:</label><br>
-			<input type="password" name="password"><br><br>
-			<input type="submit" name="login" value="Войти">
+			<label class="form-label" for="username">Логин:</label>
+			<input class="form-control" type="text" name="username"><br>
+			<label class="form-label" for="password">Пароль:</label>
+			<input class="form-control" type="password" name="password"><br>
+			<input class="btn btn-primary" type="submit" name="login" value="Войти">
 		</form>
 	</div>
 {% endblock %}
