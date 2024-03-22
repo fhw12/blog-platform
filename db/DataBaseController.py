@@ -19,4 +19,7 @@ class DBController:
 
 	def getUserByUsername(self, username):
 		return self.userModel.getUserByUsername(username)
+	
+	def addUser(self, username, password):
+		self.userModel.addUser(username, password)
 

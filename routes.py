@@ -35,6 +35,22 @@ class Routes:
 				'auth.html'
 			)
 
+		@self.app.route('/signup', methods=['POST'])
+		def signup():
+			username = request.form['username']
+			password = request.form['password']
+			repeatpassword = request.form['repeatpassword']
+
+			if password != repeatpassword:
+				return "Password and repeat password are not equal!"
+
+			user = self.dbController.getUserByUsername(username)
+			if user:
+				return "User exists"
+			else:
+				self.dbController.addUser(username, password)
+				return "Your account has been created!"
+
 		@self.app.route('/login', methods=['POST'])
 		def login():
 			username = request.form['username']
@@ -46,9 +62,9 @@ class Routes:
 				if user[0][2] == password:
 					session['username'] = username
 				else:
-					return "Error password"
+					return "Неверный пароль"
 			else:
-				return "Error username"
+				return "Неверный логин"
 
 			return redirect(url_for('index'))
 
@@ -70,8 +86,6 @@ class Routes:
 
 			if 'username' in session:
 				self.dbController.addPost(title, content)
-				#return 'Your post has been added!'
 				return redirect(url_for('index'))
 			else:
-				#return 'Error. You need to log into the app to be able to create posts!'
 				return redirect(url_for('index'))
