@@ -2,16 +2,17 @@
 
 {% block content %}
 	<div class="container">
-		<form method="post" action="/login">
+		<form method="post" action="/signup">
 			<label class="form-label" for="username">Логин:</label>
 			<input class="form-control" type="text" name="username"><br>
 
 			<label class="form-label" for="password">Пароль:</label>
 			<input class="form-control" type="password" name="password"><br>
 
-			<input class="btn btn-primary" type="submit" name="login" value="Войти">
-		</form><br>
+			<label class="form-label" for="repeatpassword">Повторите пароль:</label>
+			<input class="form-control" type="password" name="repeatpassword"><br>
 
-		<a class="btn btn-primary" href="{{ url_for('createAccount') }}">Нет аккаунта?</a>
+			<input class="btn btn-primary" type="submit" name="login" value="Зарегистрироваться">
+		</form><br>
 	</div>
 {% endblock %}

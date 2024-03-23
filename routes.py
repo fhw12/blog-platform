@@ -34,6 +34,12 @@ class Routes:
 			return render_template(
 				'auth.html'
 			)
+		
+		@self.app.route('/createAccount')
+		def createAccount():
+			return render_template(
+				'createAccount.html'
+			)
 
 		@self.app.route('/signup', methods=['POST'])
 		def signup():
