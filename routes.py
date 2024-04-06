@@ -95,3 +95,26 @@ class Routes:
 				return redirect(url_for('index'))
 			else:
 				return redirect(url_for('index'))
+		
+		@self.app.route('/deletePost/<int:post_id>')
+		def deletePost(post_id):
+			self.dbController.deletePostByID(post_id)
+			return redirect(url_for('index'))
+
+		@self.app.route('/editPost/<int:post_id>')
+		def editPost(post_id):
+			return render_template(
+				'editPost.html',
+				post = self.dbController.getPostById(int(post_id))[0]
+			)
+
+		@self.app.route('/sendEditPost/<int:post_id>', methods=['POST'])
+		def sendEditPost(post_id):
+			title = request.form['title']
+			content = request.form['content']
+
+			if 'username' in session:
+				self.dbController.updatePostByID(post_id, title, content)
+				return redirect(url_for('index'))
+			else:
+				return redirect(url_for('index'))

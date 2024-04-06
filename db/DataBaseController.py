@@ -11,6 +11,12 @@ class DBController:
 	def addPost(self, title, content):
 		self.postModel.addPost(title, content)
 
+	def updatePostByID(self, postID, title, content):
+		self.postModel.updatePostByID(postID, title, content)
+
+	def deletePostByID(self, postID):
+		self.postModel.deletePostByID(postID)
+
 	def getPostById(self, postID):
 		return self.postModel.getPostByID(postID)
 
