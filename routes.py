@@ -5,7 +5,6 @@ class Routes:
 	def __init__(self, app):
 		self.app = app
 		self.dbController = DBController()
-		#self.sessionController = SessionController()
 		self.create_routes()
 
 	def create_routes(self):
@@ -18,11 +17,12 @@ class Routes:
 
 		@self.app.route('/post/<int:post_id>')
 		def post(post_id):
+			post = self.dbController.getPostById(int(post_id))[0]
 			return render_template(
 				'post.html',
-				post = self.dbController.getPostById(int(post_id))[0]
+				post = post
 			)
-		
+
 		@self.app.route('/profile')
 		def profile():
 			return render_template(

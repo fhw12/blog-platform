@@ -1,8 +1,13 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div class="container">
+<!-- <div class="container"> -->
 	<h1>{{ post[1] }}</h1>
-	<pre>{{ post[2] }}</pre>
-</div>
+	<span id="content">{{ post[2] }}</span>
+<!-- </div> -->
+
+<script>
+	const contentElement = document.getElementById("content");
+	contentElement.innerHTML = contentElement.innerHTML.replaceAll('\n', '<br>');
+</script>
 {% endblock %}

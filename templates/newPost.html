@@ -2,12 +2,13 @@
 
 {% block content %}
 	<div class="container">
+		<h4>Создание поста</h4>
 		<form method="post" action="/sendNewPost">
 			<label class="form-label" for="title">Заголовок</label><br>
 			<input class="form-control" type="text" name="title"><br>
 			<label class="form-label" for="content">Текст</label><br>
 			<textarea class="form-control" type="text" name="content" style="min-height: 200px;"></textarea><br>
-			<input class="btn btn-primary" type="submit" name="send" value="Отправить">
+			<input class="btn btn-primary" type="submit" name="send" value="Создать пост">
 		</form>
 	</div>
 {% endblock %}
