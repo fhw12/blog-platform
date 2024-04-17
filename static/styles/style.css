@@ -1,7 +1,16 @@
-*{
-    font-family: inherit;
+body{
+    font-family: Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
 }
 
 .blog-header-logo {
     font-size: 2.0rem;
+}
+
+.card-title {
+    /* font-family: Inter; */
+    font-weight: 600;
+}
+
+.card-text {
+    color: #667085;
 }

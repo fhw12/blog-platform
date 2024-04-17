@@ -25,6 +25,17 @@ class PostModel:
 		cursor.execute("SELECT * FROM posts ORDER BY id DESC")
 		ret = cursor.fetchall()
 		return ret
+	
+	def getPostsOnPage(self, pageId):
+		posts = self.getPosts()
+		postsPerPage = 3
+		startIndex = (pageId - 1) * postsPerPage
+		endIndex = startIndex + postsPerPage
+		return posts[startIndex:endIndex]
+	
+	def getNumberOfPages(self):
+		posts = self.getPosts()
+		return (len(posts) + 3 - 1) // 3
 
 	def getPostByID(self, postID):
 		connectionHelper = ConnectionHelper()

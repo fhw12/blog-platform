@@ -20,9 +20,20 @@
 
 				<div class="col-auto d-flex justify-content-end align-items-center">
 					{% if session["username"]: %}
-					<div>
+					<!-- <div>
 						<a class="btn btn-primary" href="{{ url_for('newPost') }}">Написать</a>
 						<a class="btn btn-primary" href="{{ url_for('profile') }}">Профиль</a>
+					</div> -->
+					<div class="flex-shrink-0 dropdown">
+						<a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+							<img class="rounded-circle" src="{{ url_for('static', filename='image/profile.png') }}" width="32" height="32">
+						</a>
+						<ul class="dropdown-menu text-small shadow">
+							<li><a class="dropdown-item" href="{{ url_for('newPost') }}">Новый пост</a></li>
+							<li><a class="dropdown-item" href="{{ url_for('profile') }}">Профиль</a></li>
+							<li><hr class="dropdown-divider"></li>
+							<li><a class="dropdown-item" href="{{ url_for('logout') }}">Выйти</a></li>
+						</ul>
 					</div>
 					{% else %}
 					<a class="btn btn-primary" href="{{ url_for('auth') }}">Войти</a>

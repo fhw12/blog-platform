@@ -14,6 +14,18 @@ class Routes:
 				'index.html',
 				posts = self.dbController.getPosts(),
 			)
+		
+		@self.app.route('/explore/<int:pageId>')
+		def explore(pageId):
+			posts = self.dbController.getPostsOnPage(pageId)
+			numberOfpages = self.dbController.getNumberOfPages()
+			return render_template(
+				'explore.html',
+				posts = posts,
+				pageId = pageId,
+				numberOfpages = numberOfpages
+			)
+
 
 		@self.app.route('/post/<int:post_id>')
 		def post(post_id):
