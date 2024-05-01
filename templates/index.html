@@ -18,7 +18,16 @@
 				</div>
 			</div>
 		{% endfor %}
-		<!-- <a class="btn btn-primary">Новые посты</a>
-		<a class="btn btn-primary">Старые посты</a> -->
-	</div>
+        {% if pageId - 1 > 0 %}
+		<a href="{{ url_for('explore', pageId = pageId - 1)}}" class="btn btn-primary">Назад</a>
+		{% else %}
+		<a class="btn btn-secondary">Назад</a>
+        {% endif %}
+        <a class="btn btn-secondary">{{ pageId }}</a>
+        {% if numberOfpages > pageId %}
+		<a href="{{ url_for('explore', pageId = pageId + 1)}}" class="btn btn-primary">Вперед</a>
+		{% else %}
+		<a class="btn btn-secondary">Вперед</a>
+        {% endif %}
+    </div>
 {% endblock %}

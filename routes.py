@@ -10,12 +10,17 @@ class Routes:
 	def create_routes(self):
 		@self.app.route('/')
 		def index():
+			pageId = 1
+			posts = self.dbController.getPostsOnPage(pageId)
+			numberOfpages = self.dbController.getNumberOfPages()
 			return render_template(
-				'index.html',
-				posts = self.dbController.getPosts(),
+				'explore.html',
+				posts = posts,
+				pageId = pageId,
+				numberOfpages = numberOfpages
 			)
-		
-		@self.app.route('/explore/<int:pageId>')
+
+		@self.app.route('/<int:pageId>')
 		def explore(pageId):
 			posts = self.dbController.getPostsOnPage(pageId)
 			numberOfpages = self.dbController.getNumberOfPages()
