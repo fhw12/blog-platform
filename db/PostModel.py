@@ -28,14 +28,14 @@ class PostModel:
 	
 	def getPostsOnPage(self, pageId):
 		posts = self.getPosts()
-		postsPerPage = 3
+		postsPerPage = 4
 		startIndex = (pageId - 1) * postsPerPage
 		endIndex = startIndex + postsPerPage
 		return posts[startIndex:endIndex]
 	
 	def getNumberOfPages(self):
 		posts = self.getPosts()
-		return (len(posts) + 3 - 1) // 3
+		return (len(posts) + 4 - 1) // 4
 
 	def getPostByID(self, postID):
 		connectionHelper = ConnectionHelper()

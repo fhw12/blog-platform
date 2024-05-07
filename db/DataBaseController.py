@@ -2,11 +2,13 @@ import sqlite3
 
 import db.PostModel as PostModel
 import db.UserModel as UserModel
+import db.CommentModel as CommentModel
 
 class DBController:
 	def __init__(self):
 		self.postModel = PostModel.PostModel()
 		self.userModel = UserModel.UserModel()
+		self.commentModel = CommentModel.CommentModel()
 
 	def addPost(self, title, content):
 		self.postModel.addPost(title, content)
@@ -35,3 +37,8 @@ class DBController:
 	def addUser(self, username, password):
 		self.userModel.addUser(username, password)
 
+	def addComment(self, postId, content, creatorId):
+		self.commentModel.addComment(postId, content, creatorId)
+
+	def getCommentsByPostId(self, postId):
+		return self.commentModel.getCommentsByPostId(postId)

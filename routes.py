@@ -32,12 +32,14 @@ class Routes:
 			)
 
 
-		@self.app.route('/post/<int:post_id>')
-		def post(post_id):
-			post = self.dbController.getPostById(int(post_id))[0]
+		@self.app.route('/post/<int:postId>')
+		def post(postId):
+			post = self.dbController.getPostById(int(postId))[0]
+			comments = self.dbController.getCommentsByPostId(int(postId))
 			return render_template(
 				'post.html',
-				post = post
+				post = post,
+				comments = comments
 			)
 
 		@self.app.route('/profile')
@@ -117,6 +119,18 @@ class Routes:
 			if 'username' in session:
 				self.dbController.addPost(title, content)
 				return redirect(url_for('index'))
+			else:
+				return redirect(url_for('index'))
+		
+		@self.app.route('/sendNewComment/<int:postId>', methods=['POST'])
+		def sendNewComment(postId):
+			content = request.form['content']
+
+			if 'username' in session:
+				
+				self.dbController.addComment(postId, content, 1)
+				return session['username']
+				#return redirect(url_for('index'))
 			else:
 				return redirect(url_for('index'))
 		

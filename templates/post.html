@@ -1,10 +1,22 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<!-- <div class="container"> -->
+<div class="pb-5">
 	<h1>{{ post[1] }}</h1>
 	<span id="content">{{ post[2] }}</span>
-<!-- </div> -->
+</div>
+
+<h1>Комментарии ({{ comments|length }})</h1>
+<form method="post" action="/sendNewComment/{{ post[0] }}">
+	<textarea class="form-control mb-1" type="text" name="content" style="min-height: 50px;"></textarea>
+	<input class="btn btn-primary" type="submit" name="send" value="Оставить комментарий">
+</form>
+
+{% for comment in comments %}
+<pre class="p-2 m-2" style="background-color: wheat;">
+{{ comment[2] }}
+</pre>
+{% endfor %}
 
 <script>
 	const contentElement = document.getElementById("content");

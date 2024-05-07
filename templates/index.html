@@ -1,27 +1,29 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-	<div class="post-container">
+	<div class="post-container pb-2">
+		<div class="row">
 		{% for post in posts %}
-			<div class="pb-2">
-				<div class="card" style="width: 100%;">
-					<div class="card-body">
-						<h5 class="card-title">{{ post[1] }}</h5>
-						<!-- <h6 class="card-subtitle mb-2 text-body-secondary">05.03.2024 (Тест)</h6> -->
-						{% if post[2]|length > 100 %}
-						<p class="card-text">{{ post[2][:100] }}...</p>
-						{% else %}
-						<p class="card-text">{{ post[2][:100] }}</p>
-						{% endif %}
-						<a href="./post/{{ post[0] }}" class="card-link">Читать дальше</a>
-						{% if session["username"]: %}
-							<a href="./editPost/{{ post[0] }}" class="card-link">Редактировать</a>
-							<a href="./deletePost/{{ post[0] }}" class="card-link">Удалить</a>
-						{% endif %}
-					</div>
+		<div class="col-sm-6 pb-2">
+			<div class="card">
+				<!-- <img src="" class="card-img-top" alt="..."> -->
+				<div class="card-body">
+					<h5 class="card-title">{{ post[1] }}</h5>
+					{% if post[2]|length > 100 %}
+					<p class="card-text">{{ post[2][:100] }}...</p>
+					{% else %}
+					<p class="card-text">{{ post[2][:100] }}</p>
+					{% endif %}
+					<a href="/post/{{ post[0] }}" class="btn btn-primary">Читать</a>
+					{% if session["username"]: %}
+						<a href="./editPost/{{ post[0] }}" class="btn btn-outline-primary">Редактировать</a>
+						<a href="./deletePost/{{ post[0] }}" class="btn btn-outline-danger">Удалить</a>
+					{% endif %}
 				</div>
 			</div>
+		</div>
 		{% endfor %}
+		</div>
         {% if pageId - 1 > 0 %}
 		<a href="{{ url_for('explore', pageId = pageId - 1)}}" class="btn btn-primary">Назад</a>
 		{% else %}
