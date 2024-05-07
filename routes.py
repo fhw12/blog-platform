@@ -14,7 +14,7 @@ class Routes:
 			posts = self.dbController.getPostsOnPage(pageId)
 			numberOfpages = self.dbController.getNumberOfPages()
 			return render_template(
-				'explore.html',
+				'index.html',
 				posts = posts,
 				pageId = pageId,
 				numberOfpages = numberOfpages
@@ -25,7 +25,7 @@ class Routes:
 			posts = self.dbController.getPostsOnPage(pageId)
 			numberOfpages = self.dbController.getNumberOfPages()
 			return render_template(
-				'explore.html',
+				'index.html',
 				posts = posts,
 				pageId = pageId,
 				numberOfpages = numberOfpages
@@ -49,7 +49,8 @@ class Routes:
 		@self.app.route('/auth')
 		def auth():
 			return render_template(
-				'auth.html'
+				'auth.html',
+				errorText = "",
 			)
 		
 		@self.app.route('/createAccount')
@@ -85,9 +86,15 @@ class Routes:
 				if user[0][2] == password:
 					session['username'] = username
 				else:
-					return "Неверный пароль"
+					return render_template(
+						'auth.html',
+						errorText = "Неверный пароль",
+					)
 			else:
-				return "Неверный логин"
+				return render_template(
+						"auth.html",
+						errorText = "Неверный логин"
+					)
 
 			return redirect(url_for('index'))
 

@@ -8,7 +8,11 @@
 					<div class="card-body">
 						<h5 class="card-title">{{ post[1] }}</h5>
 						<!-- <h6 class="card-subtitle mb-2 text-body-secondary">05.03.2024 (Тест)</h6> -->
-						<p class="card-text">{{ post[2] }}</p>
+						{% if post[2]|length > 100 %}
+						<p class="card-text">{{ post[2][:100] }}...</p>
+						{% else %}
+						<p class="card-text">{{ post[2][:100] }}</p>
+						{% endif %}
 						<a href="./post/{{ post[0] }}" class="card-link">Читать дальше</a>
 						{% if session["username"]: %}
 							<a href="./editPost/{{ post[0] }}" class="card-link">Редактировать</a>

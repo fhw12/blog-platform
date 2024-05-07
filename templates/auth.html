@@ -9,6 +9,10 @@
 			<label class="form-label" for="password">Пароль:</label>
 			<input class="form-control" type="password" name="password"><br>
 
+			{% if errorText|length > 0 %}
+			<span>{{ errorText }}</span><br><br>
+			{% endif %}
+
 			<input class="btn btn-primary" type="submit" name="login" value="Войти">
 		</form><br>
 
