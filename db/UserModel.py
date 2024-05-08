@@ -27,7 +27,7 @@ class UserModel:
 		ret = cursor.fetchall()
 		return ret
 
-	def getUserByID(self, userID):
+	def getUserById(self, userID):
 		connectionHelper = ConnectionHelper()
 		connection = connectionHelper.getConnection()
 		cursor = connection.cursor()

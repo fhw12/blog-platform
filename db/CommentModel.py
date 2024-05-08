@@ -35,7 +35,7 @@ class CommentModel:
 	# 	ret = cursor.fetchall()
 	# 	return ret
 	
-	def deleteCommentByID(self, postID):
+	def deleteCommentById(self, postID):
 		connectionHelper = ConnectionHelper()
 		connection = connectionHelper.getConnection()
 		cursor = connection.cursor()

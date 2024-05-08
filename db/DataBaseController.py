@@ -34,6 +34,9 @@ class DBController:
 	def getUserByUsername(self, username):
 		return self.userModel.getUserByUsername(username)
 	
+	def getUserById(self, userId):
+		return self.userModel.getUserById(userId)
+	
 	def addUser(self, username, password):
 		self.userModel.addUser(username, password)
 

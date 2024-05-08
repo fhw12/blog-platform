@@ -35,7 +35,13 @@ class Routes:
 		@self.app.route('/post/<int:postId>')
 		def post(postId):
 			post = self.dbController.getPostById(int(postId))[0]
-			comments = self.dbController.getCommentsByPostId(int(postId))
+			postComments = self.dbController.getCommentsByPostId(int(postId))
+			comments = []
+			for item in postComments:
+				author = self.dbController.getUserById(item[3])[0][1]
+				comments.append((item[0], item[1], item[2], author))
+
+			#return comments
 			return render_template(
 				'post.html',
 				post = post,
@@ -125,12 +131,11 @@ class Routes:
 		@self.app.route('/sendNewComment/<int:postId>', methods=['POST'])
 		def sendNewComment(postId):
 			content = request.form['content']
-
+	
 			if 'username' in session:
-				
-				self.dbController.addComment(postId, content, 1)
-				return session['username']
-				#return redirect(url_for('index'))
+				userId = self.dbController.getUserByUsername(session['username'])[0][0]				
+				self.dbController.addComment(postId, content, userId)
+				return redirect(url_for('index'))
 			else:
 				return redirect(url_for('index'))
 		
