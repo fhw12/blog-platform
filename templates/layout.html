@@ -17,7 +17,7 @@
 				<div class="col-auto">
 					<a href="{{ url_for('index') }}" class="blog-header-logo text-body-emphasis text-decoration-none">Блог</a>
 				</div>
-
+				{{ session }}
 				<div class="col-auto d-flex justify-content-end align-items-center">
 					{% if session["username"]: %}
 					<div class="flex-shrink-0 dropdown">
@@ -25,7 +25,9 @@
 							<img class="rounded-circle" src="{{ url_for('static', filename='image/profile.png') }}" width="32" height="32">
 						</a>
 						<ul class="dropdown-menu text-small shadow">
+							{% if session["role"] == "admin" %}
 							<li><a class="dropdown-item" href="{{ url_for('newPost') }}">Новый пост</a></li>
+							{% endif %}
 							<li><a class="dropdown-item" href="{{ url_for('profile') }}">Профиль</a></li>
 							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item" href="{{ url_for('logout') }}">Выйти</a></li>

@@ -1,4 +1,5 @@
 import sqlite3
+import hashlib
 from db.ConnectionHelper import ConnectionHelper
 
 class UserModel:
@@ -9,15 +10,20 @@ class UserModel:
 			CREATE TABLE IF NOT EXISTS users (
 				id INTEGER PRIMARY KEY AUTOINCREMENT,
 				username TEXT,
-				password TEXT
+				password TEXT,
+				role TEXT
 			)
 		"""
 
 		connection.cursor().execute(self.createTable)
 
-	def addUser(self, username, password):
+		if len(self.getUserByUsername('admin')) == 0:
+			self.addUser("admin", "1234", "admin")
+
+	def addUser(self, username, password, role):
+		hashOfpassword = hashlib.sha256(password.encode()).hexdigest()
 		connectionHelper = ConnectionHelper()
-		connectionHelper.getConnection().cursor().execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, password))
+		connectionHelper.getConnection().cursor().execute("INSERT INTO users (username, password, role) VALUES (?, ?, ?)", (username, hashOfpassword, role))
 
 	def getUsers(self):
 		connectionHelper = ConnectionHelper()

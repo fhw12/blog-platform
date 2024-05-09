@@ -8,8 +8,8 @@
 
 <h1>Комментарии ({{ comments|length }})</h1>
 <form method="post" action="/sendNewComment/{{ post[0] }}">
-	<textarea class="form-control mb-1" type="text" name="content" style="min-height: 50px;"></textarea>
-	<input class="btn btn-primary" type="submit" name="send" value="Оставить комментарий">
+	<textarea class="form-control mb-2" type="text" name="content" style="min-height: 50px;"></textarea>
+	<input class="btn btn-primary mb-3" type="submit" name="send" value="Оставить комментарий">
 </form>
 
 {% for comment in comments %}

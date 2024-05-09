@@ -15,7 +15,7 @@
 					<p class="card-text">{{ post[2][:100] }}</p>
 					{% endif %}
 					<a href="/post/{{ post[0] }}" class="btn btn-primary">Читать</a>
-					{% if session["username"]: %}
+					{% if session["role"] == "admin" %}
 						<a href="./editPost/{{ post[0] }}" class="btn btn-outline-primary">Редактировать</a>
 						<a href="./deletePost/{{ post[0] }}" class="btn btn-outline-danger">Удалить</a>
 					{% endif %}
@@ -36,4 +36,6 @@
 		<a class="btn btn-secondary">Вперед</a>
         {% endif %}
     </div>
+
+
 {% endblock %}

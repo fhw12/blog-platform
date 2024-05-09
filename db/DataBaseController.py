@@ -37,8 +37,8 @@ class DBController:
 	def getUserById(self, userId):
 		return self.userModel.getUserById(userId)
 	
-	def addUser(self, username, password):
-		self.userModel.addUser(username, password)
+	def addUser(self, username, password, role):
+		self.userModel.addUser(username, password, role)
 
 	def addComment(self, postId, content, creatorId):
 		self.commentModel.addComment(postId, content, creatorId)

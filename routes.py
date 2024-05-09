@@ -1,3 +1,4 @@
+import hashlib
 from flask import render_template, request, session, redirect, url_for
 from db.DataBaseController import DBController
 
@@ -41,7 +42,6 @@ class Routes:
 				author = self.dbController.getUserById(item[3])[0][1]
 				comments.append((item[0], item[1], item[2], author))
 
-			#return comments
 			return render_template(
 				'post.html',
 				post = post,
@@ -80,7 +80,7 @@ class Routes:
 			if user:
 				return "User exists"
 			else:
-				self.dbController.addUser(username, password)
+				self.dbController.addUser(username, password, "user")
 				return "Your account has been created!"
 
 		@self.app.route('/login', methods=['POST'])
@@ -91,8 +91,11 @@ class Routes:
 			user = self.dbController.getUserByUsername(username)
 
 			if user:
-				if user[0][2] == password:
+				hashOfpassword = hashlib.sha256(password.encode()).hexdigest()
+
+				if user[0][2] == hashOfpassword:
 					session['username'] = username
+					session['role'] = user[0][3]
 				else:
 					return render_template(
 						'auth.html',
@@ -109,6 +112,7 @@ class Routes:
 		@self.app.route('/logout')
 		def logout():
 			session.pop('username', None)
+			session.pop('role', None)
 			return redirect(url_for('index'))
 
 		@self.app.route('/newPost')
