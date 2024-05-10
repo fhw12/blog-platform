@@ -17,7 +17,10 @@
 					<a href="/post/{{ post[0] }}" class="btn btn-primary">Читать</a>
 					{% if session["role"] == "admin" %}
 						<a href="./editPost/{{ post[0] }}" class="btn btn-outline-primary">Редактировать</a>
-						<a href="./deletePost/{{ post[0] }}" class="btn btn-outline-danger">Удалить</a>
+						<!-- <a href="./deletePost/{{ post[0] }}" class="btn btn-outline-danger">Удалить</a> -->
+						<button type="button" onclick="setPostInformation('{{ post[1] }}', '{{ post[0] }}')" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deletePostModal">
+							Удалить
+						</button>	
 					{% endif %}
 				</div>
 			</div>
@@ -28,14 +31,38 @@
 		<a href="{{ url_for('explore', pageId = pageId - 1)}}" class="btn btn-primary">Назад</a>
 		{% else %}
 		<a class="btn btn-secondary">Назад</a>
-        {% endif %}
-        <a class="btn btn-secondary">{{ pageId }}</a>
-        {% if numberOfpages > pageId %}
+		{% endif %}
+		<a class="btn btn-secondary">{{ pageId }}</a>
+		{% if numberOfpages > pageId %}
 		<a href="{{ url_for('explore', pageId = pageId + 1)}}" class="btn btn-primary">Вперед</a>
 		{% else %}
 		<a class="btn btn-secondary">Вперед</a>
-        {% endif %}
-    </div>
+		{% endif %}
+	</div>
 
+<div class="modal fade" id="deletePostModal" tabindex="-1" aria-labelledby="titleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h1 class="modal-title fs-5" id="titleModalLabel">Удалить пост?</h1>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div id="deletePostModalContent" class="modal-body">Вы уверены?</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Отмена</button>
+				<a class="btn btn-danger" id="deletePostModalButton">Удалить пост</a>
+			</div>
+		</div>
+	</div>
+</div>
 
+<script>
+	function setPostInformation(postName, postId){
+		const deletePostModalButton = document.getElementById("deletePostModalButton");
+		deletePostModalButton.setAttribute("href", `./deletePost/${postId}`);
+
+		const deletePostModalContent = document.getElementById("deletePostModalContent");
+		deletePostModalContent.innerHTML = postName;
+	}
+</script>
 {% endblock %}

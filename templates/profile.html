@@ -3,8 +3,7 @@
 {% block content %}
 <div class="container">
 	{% if session["username"]: %}
-		<span>Ваше имя:</span>
-        <span>{{ session["username"] }}</span><br><br>
+		<span>Ваше имя: {{ session["username"] }}</span><br><br>
         <a class="btn btn-primary" href="{{ url_for('logout') }}">Выйти</a>
 	{% else %}
 		<span>Вы не вошли в аккаунт!</span>

@@ -1,18 +1,19 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-	<div class="container">
+	<div class="container m-auto w-100" style="max-width: 400px;">
+		<center><h1>Регистрация</h1></center>
 		<form method="post" action="/signup">
-			<label class="form-label" for="username">Логин:</label>
-			<input class="form-control" type="text" name="username"><br>
+			<!-- <label class="form-label" for="username">Логин:</label> -->
+			<input class="form-control" type="text" name="username" placeholder="Логин"><br>
 
-			<label class="form-label" for="password">Пароль:</label>
-			<input class="form-control" type="password" name="password"><br>
+			<!-- <label class="form-label" for="password">Пароль:</label> -->
+			<input class="form-control" type="password" name="password" placeholder="Пароль"><br>
 
-			<label class="form-label" for="repeatpassword">Повторите пароль:</label>
-			<input class="form-control" type="password" name="repeatpassword"><br>
+			<!-- <label class="form-label" for="repeatpassword">Повторите пароль:</label> -->
+			<input class="form-control" type="password" name="repeatpassword" placeholder="Придумайте пароль"><br>
 
-			<input class="btn btn-primary" type="submit" name="login" value="Зарегистрироваться">
+			<input class="btn btn-primary w-100" type="submit" name="login" value="Зарегистрироваться">
 		</form><br>
 	</div>
 {% endblock %}
