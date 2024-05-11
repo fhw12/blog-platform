@@ -1,0 +1,9 @@
+<script>
+let contentTextArea = document.getElementById("contentTextArea");
+
+function pasteText(startText, endText){
+    let startPosition = contentTextArea.selectionStart;
+    let endPosition = contentTextArea.selectionEnd;
+    contentTextArea.setRangeText(`${startText}${contentTextArea.value.substring(startPosition, endPosition)}${endText}`);
+}
+</script>

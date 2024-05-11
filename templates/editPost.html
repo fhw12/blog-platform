@@ -1,14 +1,14 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-	<div class="container">
-		<h4>Редактирование поста</h4>
-		<form method="post" action="/sendEditPost/{{ post[0] }}">
-			<label class="form-label" for="title">Заголовок</label><br>
-			<input class="form-control" type="text" name="title" value="{{ post[1] }}"><br>
-			<label class="form-label" for="content">Текст</label><br>
-			<textarea class="form-control" type="text" name="content" style="min-height: 200px;">{{ post[2] }}</textarea><br>
-			<input class="btn btn-primary" type="submit" name="send" value="Обновить пост">
-		</form>
-	</div>
+<div class="container">
+	<h4>Редактирование поста</h4>
+	<form method="post" action="/sendEditPost/{{ post[0] }}">
+		<input class="form-control mb-3" type="text" name="title" value="{{ post[1] }}" placeholder="Заголовок">
+		{% include 'snippets/tagPanel.html' %}
+		<textarea id="contentTextArea" class="form-control mb-3" type="text" name="content" style="min-height: 200px;" placeholder="Текст">{{ post[2] }}</textarea>
+		<input class="btn btn-primary" type="submit" name="send" value="Обновить пост">
+	</form>
+</div>
+{% include 'snippets/tagScript.html' %}
 {% endblock %}
