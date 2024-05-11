@@ -51,7 +51,8 @@ class Routes:
 		@self.app.route('/profile')
 		def profile():
 			return render_template(
-				'profile.html'
+				'profile.html',
+				errorText = ''
 			)
 
 		@self.app.route('/auth')
@@ -109,6 +110,31 @@ class Routes:
 
 			return redirect(url_for('index'))
 
+		@self.app.route('/changePassword', methods=['POST'])
+		def changePassword():
+			username = session['username'] #request.form['username']
+			password = request.form['password']
+			newPassword = request.form['newpassword']
+
+			user = self.dbController.getUserByUsername(username)
+
+			if user:
+				hashOfpassword = hashlib.sha256(password.encode()).hexdigest()
+
+				if user[0][2] == hashOfpassword:
+					hashOfnewPassword = hashlib.sha256(newPassword.encode()).hexdigest()
+					self.dbController.setUserPasswordByUsername(user[0][1], hashOfnewPassword)
+				else:
+					return render_template(
+						'profile.html',
+						errorText = "Неверный текущий пароль",
+					)
+
+			return render_template(
+				'profile.html',
+				errorText = "Пароль успешно обновлен"
+			)
+
 		@self.app.route('/logout')
 		def logout():
 			session.pop('username', None)
@@ -123,6 +149,8 @@ class Routes:
 
 		@self.app.route('/sendNewPost', methods=['POST'])
 		def sendNewPost():
+			if session['role'] != 'admin':
+				return "Доступ запрещен!"
 			title = request.form['title']
 			content = request.form['content']
 
@@ -145,11 +173,23 @@ class Routes:
 		
 		@self.app.route('/deletePost/<int:post_id>')
 		def deletePost(post_id):
+			if 'role' in session:
+				if session['role'] != 'admin':
+					return "Доступ запрещен!"
+			else:
+				return "Доступ запрещен!"
+
 			self.dbController.deletePostByID(post_id)
 			return redirect(url_for('index'))
 
 		@self.app.route('/editPost/<int:post_id>')
 		def editPost(post_id):
+			if 'role' in session:
+				if session['role'] != 'admin':
+					return "Доступ запрещен!"
+			else:
+				return "Доступ запрещен!"
+
 			return render_template(
 				'editPost.html',
 				post = self.dbController.getPostById(int(post_id))[0]
@@ -157,6 +197,12 @@ class Routes:
 
 		@self.app.route('/sendEditPost/<int:post_id>', methods=['POST'])
 		def sendEditPost(post_id):
+			if 'role' in session:
+				if session['role'] != 'admin':
+					return "Доступ запрещен!"
+			else:
+				return "Доступ запрещен!"
+
 			title = request.form['title']
 			content = request.form['content']
 

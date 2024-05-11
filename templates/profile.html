@@ -1,10 +1,36 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+
 <div class="container">
 	{% if session["username"]: %}
-		<span>Ваше имя: {{ session["username"] }}</span><br><br>
-        <a class="btn btn-primary" href="{{ url_for('logout') }}">Выйти</a>
+
+	{% if errorText|length != 0 %}
+	<div class="alert alert-info" role="alert">
+		{{ errorText }}
+	</div>
+	{% endif %}
+	  
+
+	<div class="card mb-3" style="width: 18rem;">
+		<div class="card-header">Ваш профиль</div>
+		<ul class="list-group list-group-flush">
+		  <li class="list-group-item">Логин: {{ session["username"] }}</li>
+		  <li class="list-group-item">Роль: {{ session["role"] }}</li>
+		  <!-- <a class="btn btn-primary" href="{{ url_for('logout') }}">Выйти</a> -->
+		</ul>
+	</div>
+	
+	<!-- <span>Ваше имя: {{ session["username"] }}</span><br><br>
+	<span>Роль: {{ session["role"] }}</span><br><br> -->
+        <!-- <a class="btn btn-primary" href="{{ url_for('logout') }}">Выйти</a> -->
+
+	<h2>Сменить пароль</h2>
+	<form method="post" action="/changePassword">
+		<input class="form-control mb-2" type="password" name="password" placeholder="Текущий пароль">
+		<input class="form-control mb-2" type="password" name="newpassword" placeholder="Новый пароль">
+		<input class="btn btn-primary" type="submit" name="login" value="Сменить пароль">
+	</form><br>
 	{% else %}
 		<span>Вы не вошли в аккаунт!</span>
 	{% endif %}

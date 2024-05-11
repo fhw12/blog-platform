@@ -48,3 +48,9 @@ class UserModel:
 		cursor.execute("SELECT * FROM users WHERE username=?", (username,))
 		ret = cursor.fetchall()
 		return ret
+	
+	def setUserPasswordByUsername(self, username, newPassword):
+		connectionHelper = ConnectionHelper()
+		connection = connectionHelper.getConnection()
+		cursor = connection.cursor()
+		cursor.execute("UPDATE users SET password=? WHERE username=?", (newPassword, username,))

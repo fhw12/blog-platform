@@ -39,6 +39,9 @@ class DBController:
 	
 	def addUser(self, username, password, role):
 		self.userModel.addUser(username, password, role)
+	
+	def setUserPasswordByUsername(self, username, newPassword):
+		self.userModel.setUserPasswordByUsername(username, newPassword)
 
 	def addComment(self, postId, content, creatorId):
 		self.commentModel.addComment(postId, content, creatorId)
