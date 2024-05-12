@@ -8,7 +8,9 @@
 			<input class="form-control" type="password" name="password" placeholder="Пароль"><br>
 
 			{% if errorText|length > 0 %}
-			<span>{{ errorText }}</span><br><br>
+			<div class="alert alert-danger" role="alert">
+				{{ errorText }}
+			</div>
 			{% endif %}
 
 			<input class="btn btn-primary w-100" type="submit" name="login" value="Войти">

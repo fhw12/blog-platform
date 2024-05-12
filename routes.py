@@ -59,13 +59,14 @@ class Routes:
 		def auth():
 			return render_template(
 				'auth.html',
-				errorText = "",
+				errorText = ''
 			)
 		
 		@self.app.route('/createAccount')
 		def createAccount():
 			return render_template(
-				'createAccount.html'
+				'createAccount.html',
+				errorText = ''
 			)
 
 		@self.app.route('/signup', methods=['POST'])
@@ -75,14 +76,20 @@ class Routes:
 			repeatpassword = request.form['repeatpassword']
 
 			if password != repeatpassword:
-				return "Password and repeat password are not equal!"
+				return render_template(
+					'createAccount.html',
+					errorText = "Пароли не совпадают"
+				)
 
 			user = self.dbController.getUserByUsername(username)
 			if user:
-				return "User exists"
+				return render_template(
+					'createAccount.html',
+					errorText = 'Пользователь уже существует'
+				)
 			else:
 				self.dbController.addUser(username, password, "user")
-				return "Your account has been created!"
+				return redirect(url_for('index'))
 
 		@self.app.route('/login', methods=['POST'])
 		def login():
@@ -112,7 +119,7 @@ class Routes:
 
 		@self.app.route('/changePassword', methods=['POST'])
 		def changePassword():
-			username = session['username'] #request.form['username']
+			username = session['username']
 			password = request.form['password']
 			newPassword = request.form['newpassword']
 
