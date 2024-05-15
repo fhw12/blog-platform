@@ -178,19 +178,19 @@ class Routes:
 			else:
 				return redirect(url_for('index'))
 		
-		@self.app.route('/deletePost/<int:post_id>')
-		def deletePost(post_id):
+		@self.app.route('/deletePost/<int:postId>')
+		def deletePost(postId):
 			if 'role' in session:
 				if session['role'] != 'admin':
 					return "Доступ запрещен!"
 			else:
 				return "Доступ запрещен!"
 
-			self.dbController.deletePostByID(post_id)
+			self.dbController.deletePostByID(postId)
 			return redirect(url_for('index'))
 
-		@self.app.route('/editPost/<int:post_id>')
-		def editPost(post_id):
+		@self.app.route('/editPost/<int:postId>')
+		def editPost(postId):
 			if 'role' in session:
 				if session['role'] != 'admin':
 					return "Доступ запрещен!"
@@ -199,11 +199,11 @@ class Routes:
 
 			return render_template(
 				'editPost.html',
-				post = self.dbController.getPostById(int(post_id))[0]
+				post = self.dbController.getPostById(int(postId))[0]
 			)
 
-		@self.app.route('/sendEditPost/<int:post_id>', methods=['POST'])
-		def sendEditPost(post_id):
+		@self.app.route('/sendEditPost/<int:postId>', methods=['POST'])
+		def sendEditPost(postId):
 			if 'role' in session:
 				if session['role'] != 'admin':
 					return "Доступ запрещен!"
@@ -214,7 +214,7 @@ class Routes:
 			content = request.form['content']
 
 			if 'username' in session:
-				self.dbController.updatePostByID(post_id, title, content)
+				self.dbController.updatePostByID(postId, title, content)
 				return redirect(url_for('index'))
 			else:
 				return redirect(url_for('index'))
