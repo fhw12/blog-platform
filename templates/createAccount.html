@@ -4,9 +4,9 @@
 	<div class="container m-auto w-100" style="max-width: 400px;">
 		<center><h1>Регистрация</h1></center>
 		<form method="post" action="/signup">
-			<input class="form-control" type="text" name="username" placeholder="Логин"><br>
-			<input class="form-control" type="password" name="password" placeholder="Пароль"><br>
-			<input class="form-control" type="password" name="repeatpassword" placeholder="Придумайте пароль"><br>
+			<input class="form-control" type="text" name="username" placeholder="Логин (4-16 знаков, латинские буквы и цифры)" pattern="[A-Za-z0-9]{4,16}" required><br>
+			<input class="form-control" type="password" name="password" placeholder="Пароль" minlength="8" required><br>
+			<input class="form-control" type="password" name="repeatpassword" placeholder="Придумайте пароль" minlength="8" required><br>
 
 			{% if errorText|length > 0 %}
 			<div class="alert alert-danger" role="alert">

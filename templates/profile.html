@@ -27,8 +27,8 @@
 
 	<h2>Сменить пароль</h2>
 	<form method="post" action="/changePassword">
-		<input class="form-control mb-2" type="password" name="password" placeholder="Текущий пароль">
-		<input class="form-control mb-2" type="password" name="newpassword" placeholder="Новый пароль">
+		<input class="form-control mb-2" type="password" name="password" placeholder="Текущий пароль" minlength="8" required>
+		<input class="form-control mb-2" type="password" name="newpassword" placeholder="Новый пароль" minlength="8" required>
 		<input class="btn btn-primary" type="submit" name="login" value="Сменить пароль">
 	</form><br>
 	{% else %}
