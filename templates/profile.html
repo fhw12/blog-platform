@@ -17,13 +17,8 @@
 		<ul class="list-group list-group-flush">
 		  <li class="list-group-item">Логин: {{ session["username"] }}</li>
 		  <li class="list-group-item">Роль: {{ session["role"] }}</li>
-		  <!-- <a class="btn btn-primary" href="{{ url_for('logout') }}">Выйти</a> -->
 		</ul>
 	</div>
-	
-	<!-- <span>Ваше имя: {{ session["username"] }}</span><br><br>
-	<span>Роль: {{ session["role"] }}</span><br><br> -->
-        <!-- <a class="btn btn-primary" href="{{ url_for('logout') }}">Выйти</a> -->
 
 	<h2>Сменить пароль</h2>
 	<form method="post" action="/changePassword">

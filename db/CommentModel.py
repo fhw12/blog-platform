@@ -26,23 +26,9 @@ class CommentModel:
 		cursor.execute("SELECT * FROM comments WHERE postId=? ORDER BY id DESC", (postId,))
 		ret = cursor.fetchall()
 		return ret
-
-	# def getPostByID(self, postID):
-	# 	connectionHelper = ConnectionHelper()
-	# 	connection = connectionHelper.getConnection()
-	# 	cursor = connection.cursor()
-	# 	cursor.execute("SELECT * FROM posts WHERE id=?", (postID,))
-	# 	ret = cursor.fetchall()
-	# 	return ret
 	
 	def deleteCommentById(self, postID):
 		connectionHelper = ConnectionHelper()
 		connection = connectionHelper.getConnection()
 		cursor = connection.cursor()
 		cursor.execute("DELETE FROM comments WHERE id=?", (postID,))
-
-	# def updatePostByID(self, postID, title, content):
-	# 	connectionHelper = ConnectionHelper()
-	# 	connection = connectionHelper.getConnection()
-	# 	cursor = connection.cursor()
-	# 	cursor.execute("UPDATE posts SET title=?, content=? WHERE id=?", (title, content, postID,))

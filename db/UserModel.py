@@ -18,7 +18,7 @@ class UserModel:
 		connection.cursor().execute(self.createTable)
 
 		if len(self.getUserByUsername('admin')) == 0:
-			self.addUser("admin", "1234", "admin")
+			self.addUser("admin", "adminpassword", "admin")
 
 	def addUser(self, username, password, role):
 		hashOfpassword = hashlib.sha256(password.encode()).hexdigest()
