@@ -40,7 +40,6 @@ class Routes:
             for item in postComments:
                 author = queries.get_user_by_id(item.creatorId).username
                 comments.append((item.id, item.postId, item.content, author))
-
             return render_template(
                 'post.html',
                 post = post,
@@ -73,14 +72,11 @@ class Routes:
             username = request.form['username']
             password = request.form['password']
             repeatpassword = request.form['repeatpassword']
-
             if password != repeatpassword:
                 return render_template(
                     'createAccount.html',
                     errorText = "Пароли не совпадают"
                 )
-
-            #user = self.dbController.getUserByUsername(username)
             user = queries.get_user_by_username(username=username)
             if user:
                 return render_template(
@@ -88,7 +84,6 @@ class Routes:
                     errorText = 'Пользователь уже существует'
                 )
             else:
-                # self.dbController.addUser(username, password, "user")
                 queries.add_user(username, password, "user")
                 return redirect(url_for('index'))
 
@@ -96,10 +91,7 @@ class Routes:
         def login():
             username = request.form['username']
             password = request.form['password']
-
-            # user = self.dbController.getUserByUsername(username)
             user = queries.get_user_by_username(username=username)
-
             if user:
                 hashOfpassword = hashlib.sha256(password.encode()).hexdigest()
 
@@ -116,7 +108,6 @@ class Routes:
                         "auth.html",
                         errorText = "Неверный логин"
                     )
-
             return redirect(url_for('index'))
 
         @self.app.route('/changePassword', methods=['POST'])
@@ -124,10 +115,7 @@ class Routes:
             username = session['username']
             password = request.form['password']
             newPassword = request.form['newpassword']
-
-            # user = self.dbController.getUserByUsername(username)
             user = queries.get_user_by_username(username=username)
-
             if user:
                 hashOfpassword = hashlib.sha256(password.encode()).hexdigest()
 
@@ -138,7 +126,6 @@ class Routes:
                         'profile.html',
                         errorText = "Неверный текущий пароль",
                     )
-
             return render_template(
                 'profile.html',
                 errorText = "Пароль успешно обновлен"
@@ -162,9 +149,7 @@ class Routes:
                 return "Доступ запрещен!"
             title = request.form['title']
             content = request.form['content']
-
             if 'username' in session:
-                # self.dbController.addPost(title, content)
                 queries.add_post(title=title, content=content)
                 return redirect(url_for('index'))
             else:
@@ -173,11 +158,8 @@ class Routes:
         @self.app.route('/sendNewComment/<int:postId>', methods=['POST'])
         def sendNewComment(postId):
             content = request.form['content']
-    
             if 'username' in session:
-                # userId = self.dbController.getUserByUsername(session['username'])[0][0]
                 userId = queries.get_user_by_username(session['username']).id
-                # self.dbController.addComment(postId, content, userId)
                 queries.add_comment(post_id=postId, content=content, creator_id=userId)
                 return redirect(url_for('index'))
             else:
@@ -190,8 +172,6 @@ class Routes:
                     return "Доступ запрещен!"
             else:
                 return "Доступ запрещен!"
-
-            # self.dbController.deletePostByID(postId)
             queries.delete_post_by_id(post_id=postId)
             return redirect(url_for('index'))
 
@@ -202,10 +182,8 @@ class Routes:
                     return "Доступ запрещен!"
             else:
                 return "Доступ запрещен!"
-
             return render_template(
                 'editPost.html',
-                # post = self.dbController.getPostById(int(postId))[0]
                 post = queries.get_post_by_id(post_id=postId)
             )
 
@@ -216,12 +194,9 @@ class Routes:
                     return "Доступ запрещен!"
             else:
                 return "Доступ запрещен!"
-
             title = request.form['title']
             content = request.form['content']
-
             if 'username' in session:
-                # self.dbController.updatePostByID(postId, title, content)
                 queries.update_post_by_id(post_id=postId, title=title, content=content)
                 return redirect(url_for('index'))
             else:
