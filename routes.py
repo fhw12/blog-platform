@@ -16,7 +16,7 @@ class Routes:
             return render_template(
                 'index.html',
                 posts = posts,
-                pageId = pageId,
+                pageId = 1,
                 numberOfpages = numberOfpages
             )
 
