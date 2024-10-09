@@ -1,4 +1,4 @@
-from sqlalchemy import ForeignKey, String, Integer
+from sqlalchemy import String, Integer
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
@@ -7,7 +7,7 @@ class Base(DeclarativeBase):
 
 
 class User(Base):
-    __tablename__ = 'users'
+    __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     username: Mapped[str] = mapped_column(String())
@@ -16,7 +16,7 @@ class User(Base):
 
 
 class Post(Base):
-    __tablename__ = 'posts'
+    __tablename__ = "posts"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(String())
@@ -24,7 +24,7 @@ class Post(Base):
 
 
 class Comment(Base):
-    __tablename__ = 'comments'
+    __tablename__ = "comments"
 
     id: Mapped[int] = mapped_column(primary_key=True)
     post_id: Mapped[int] = mapped_column(Integer)
