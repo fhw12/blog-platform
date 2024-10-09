@@ -2,13 +2,13 @@
 
 {% block content %}
 <div class="pb-5">
-	<h1>{{ post[1] }}</h1>
-	<span id="content" style="font-size: 1.2em;">{{ post[2]|safe }}</span>
+	<h1>{{ post.title }}</h1>
+	<span id="content" style="font-size: 1.2em;">{{ post.content|safe }}</span>
 </div>
 
 <h1>Комментарии ({{ comments|length }})</h1>
 {% if session["username"]: %}
-<form method="post" action="/sendNewComment/{{ post[0] }}">
+<form method="post" action="/sendNewComment/{{ post.id }}">
 	<textarea class="form-control mb-2" type="text" name="content" style="min-height: 50px;"></textarea>
 	<input class="btn btn-primary mb-3" type="submit" name="send" value="Оставить комментарий">
 </form>

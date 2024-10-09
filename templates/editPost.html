@@ -3,10 +3,10 @@
 {% block content %}
 <div class="container">
 	<h4>Редактирование поста</h4>
-	<form method="post" action="/sendEditPost/{{ post[0] }}">
-		<input class="form-control mb-3" type="text" name="title" value="{{ post[1] }}" placeholder="Заголовок">
+	<form method="post" action="/sendEditPost/{{ post.id }}">
+		<input class="form-control mb-3" type="text" name="title" value="{{ post.title }}" placeholder="Заголовок">
 		{% include 'snippets/tagPanel.html' %}
-		<textarea id="contentTextArea" class="form-control mb-3" type="text" name="content" style="min-height: 200px;" placeholder="Текст">{{ post[2] }}</textarea>
+		<textarea id="contentTextArea" class="form-control mb-3" type="text" name="content" style="min-height: 200px;" placeholder="Текст">{{ post.content }}</textarea>
 		<input class="btn btn-primary" type="submit" name="send" value="Обновить пост">
 	</form>
 </div>

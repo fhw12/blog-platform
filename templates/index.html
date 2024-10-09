@@ -5,21 +5,21 @@
 <div class="post-container pb-2">
 	<div class="row">
 	{% for post in posts %}
-	<div class="col-sm-6 pb-2">
+	<div class="col-sm-12 pb-2">
 		<div class="card">
 			<div class="card-body">
-				<h5 class="card-title">{{ post[1] }}</h5>
-				{% if post[2]|length > 100 %}
-				<p class="card-text">{{ post[2][:100] }}...</p>
+				<h5 class="card-title">{{ post.title }}</h5>
+				{% if post.content|length > 100 %}
+				<p class="card-text">{{ post.content }}...</p>
 				{% else %}
-				<p class="card-text">{{ post[2][:100] }}</p>
+				<p class="card-text">{{ post.content }}</p>
 				{% endif %}
-				<a href="/post/{{ post[0] }}" class="btn btn-primary">Читать</a>
+				<a href="/post/{{ post.id }}" class="btn btn-primary">Читать</a>
 				{% if session["role"] == "admin" %}
-					<a href="./editPost/{{ post[0] }}" class="btn btn-outline-primary">Редактировать</a>
-					<button type="button" onclick="setPostInformation('{{ post[1] }}', '{{ post[0] }}')" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deletePostModal">
+					<a href="./editPost/{{ post.id }}" class="btn btn-outline-primary">Редактировать</a>
+					<button type="button" onclick="setPostInformation('{{ post.title }}', '{{ post.id }}')" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deletePostModal">
 						Удалить
-					</button>	
+					</button>
 				{% endif %}
 			</div>
 		</div>
