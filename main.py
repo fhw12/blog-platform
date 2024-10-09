@@ -2,7 +2,7 @@ from flask import Flask
 import flask_login
 import os
 
-import hashlib
+from hashlib import sha256
 from flask import render_template, request, session, redirect, url_for
 import db.queries as queries
 
@@ -15,34 +15,34 @@ if not queries.get_user_by_username('admin'):
 @app.route('/')
 def index():
     posts = queries.get_posts_on_page(page_id=1)
-    numberOfpages = queries.get_number_of_pages()
+    number_of_pages: int = queries.get_number_of_pages()
     return render_template(
         'index.html',
         posts = posts,
-        pageId = 1,
-        numberOfpages = numberOfpages
+        page_id = 1,
+        number_of_pages = number_of_pages
     )
 
-@app.route('/<int:pageId>')
-def explore(pageId):
-    posts = queries.get_posts_on_page(page_id=pageId)
-    numberOfpages = queries.get_number_of_pages()
+@app.route('/<int:page_id>')
+def explore(page_id):
+    posts = queries.get_posts_on_page(page_id=page_id)
+    number_of_pages: int = queries.get_number_of_pages()
     return render_template(
         'index.html',
         posts = posts,
-        pageId = pageId,
-        numberOfpages = numberOfpages
+        page_id = page_id,
+        number_of_pages = number_of_pages
     )
 
 
-@app.route('/post/<int:postId>')
-def post(postId):
-    post = queries.get_post_by_id(post_id=postId)
-    postComments = queries.get_comments_by_post_id(post_id=postId)
+@app.route('/post/<int:post_id>')
+def post(post_id):
+    post = queries.get_post_by_id(post_id=post_id)
+    post_comments = queries.get_comments_by_post_id(post_id=post_id)
     comments = []
-    for item in postComments:
-        author = queries.get_user_by_id(item.creator_id).username
-        comments.append((item.id, item.post_id, item.content, author))
+    for comment in post_comments:
+        author: str = queries.get_user_by_id(comment.creator_id).username
+        comments.append((comment.id, comment.post_id, comment.content, author))
     return render_template(
         'post.html',
         post = post,
@@ -53,38 +53,38 @@ def post(postId):
 def profile():
     return render_template(
         'profile.html',
-        errorText = ''
+        error_text = ''
     )
 
 @app.route('/auth')
 def auth():
     return render_template(
         'auth.html',
-        errorText = ''
+        error_text = ''
     )
 
 @app.route('/createAccount')
 def createAccount():
     return render_template(
         'createAccount.html',
-        errorText = ''
+        error_text = ''
     )
 
 @app.route('/signup', methods=['POST'])
 def signup():
-    username = request.form['username']
-    password = request.form['password']
-    repeatpassword = request.form['repeatpassword']
-    if password != repeatpassword:
+    username: str = request.form['username']
+    password: str = request.form['password']
+    repeated_password: str = request.form['repeatpassword']
+    if password != repeated_password:
         return render_template(
             'createAccount.html',
-            errorText = "Пароли не совпадают"
+            error_text = "Пароли не совпадают"
         )
     user = queries.get_user_by_username(username=username)
     if user:
         return render_template(
             'createAccount.html',
-            errorText = 'Пользователь уже существует'
+            error_text = 'Пользователь уже существует'
         )
     else:
         queries.add_user(username, password, "user")
@@ -92,46 +92,46 @@ def signup():
 
 @app.route('/login', methods=['POST'])
 def login():
-    username = request.form['username']
-    password = request.form['password']
+    username: str = request.form['username']
+    password: str = request.form['password']
     user = queries.get_user_by_username(username=username)
     if user:
-        hashOfpassword = hashlib.sha256(password.encode()).hexdigest()
+        password_hash: str = sha256(password.encode()).hexdigest()
 
-        if user.password == hashOfpassword:
+        if user.password == password_hash:
             session['username'] = username
             session['role'] = user.role
         else:
             return render_template(
                 'auth.html',
-                errorText = "Неверный пароль",
+                error_text = "Неверный пароль",
             )
     else:
         return render_template(
                 "auth.html",
-                errorText = "Неверный логин"
+                error_text = "Неверный логин"
             )
     return redirect(url_for('index'))
 
 @app.route('/changePassword', methods=['POST'])
 def changePassword():
-    username = session['username']
-    password = request.form['password']
-    newPassword = request.form['newpassword']
+    username: str = session['username']
+    password: str = request.form['password']
+    new_password = request.form['newpassword']
     user = queries.get_user_by_username(username=username)
     if user:
-        hashOfpassword = hashlib.sha256(password.encode()).hexdigest()
+        password_hash: str = sha256(password.encode()).hexdigest()
 
-        if user.password == hashOfpassword:
-            queries.set_user_password_by_username(username=user.username, new_password=newPassword)
+        if user.password == password_hash:
+            queries.set_user_password_by_username(username=user.username, new_password=new_password)
         else:
             return render_template(
                 'profile.html',
-                errorText = "Неверный текущий пароль",
+                error_text = "Неверный текущий пароль",
             )
     return render_template(
         'profile.html',
-        errorText = "Пароль успешно обновлен"
+        error_text = "Пароль успешно обновлен"
     )
 
 @app.route('/logout')
@@ -150,36 +150,36 @@ def newPost():
 def sendNewPost():
     if session['role'] != 'admin':
         return "Доступ запрещен!"
-    title = request.form['title']
-    content = request.form['content']
+    title: str = request.form['title']
+    content: str = request.form['content']
     if 'username' in session:
         queries.add_post(title=title, content=content)
         return redirect(url_for('index'))
     else:
         return redirect(url_for('index'))
 
-@app.route('/sendNewComment/<int:postId>', methods=['POST'])
-def sendNewComment(postId):
-    content = request.form['content']
+@app.route('/sendNewComment/<int:post_id>', methods=['POST'])
+def sendNewComment(post_id):
+    content: str = request.form['content']
     if 'username' in session:
-        userId = queries.get_user_by_username(session['username']).id
-        queries.add_comment(post_id=postId, content=content, creator_id=userId)
+        user_id: int = queries.get_user_by_username(session['username']).id
+        queries.add_comment(post_id=post_id, content=content, creator_id=user_id)
         return redirect(url_for('index'))
     else:
         return redirect(url_for('index'))
 
-@app.route('/deletePost/<int:postId>')
-def deletePost(postId):
+@app.route('/deletePost/<int:post_id>')
+def deletePost(post_id):
     if 'role' in session:
         if session['role'] != 'admin':
             return "Доступ запрещен!"
     else:
         return "Доступ запрещен!"
-    queries.delete_post_by_id(post_id=postId)
+    queries.delete_post_by_id(post_id=post_id)
     return redirect(url_for('index'))
 
-@app.route('/editPost/<int:postId>')
-def editPost(postId):
+@app.route('/editPost/<int:post_id>')
+def editPost(post_id):
     if 'role' in session:
         if session['role'] != 'admin':
             return "Доступ запрещен!"
@@ -187,20 +187,20 @@ def editPost(postId):
         return "Доступ запрещен!"
     return render_template(
         'editPost.html',
-        post = queries.get_post_by_id(post_id=postId)
+        post = queries.get_post_by_id(post_id=post_id)
     )
 
-@app.route('/sendEditPost/<int:postId>', methods=['POST'])
-def sendEditPost(postId):
+@app.route('/sendEditPost/<int:post_id>', methods=['POST'])
+def sendEditPost(post_id):
     if 'role' in session:
         if session['role'] != 'admin':
             return "Доступ запрещен!"
     else:
         return "Доступ запрещен!"
-    title = request.form['title']
-    content = request.form['content']
+    title: str = request.form['title']
+    content: str = request.form['content']
     if 'username' in session:
-        queries.update_post_by_id(post_id=postId, title=title, content=content)
+        queries.update_post_by_id(post_id=post_id, title=title, content=content)
         return redirect(url_for('index'))
     else:
         return redirect(url_for('index'))

@@ -26,14 +26,14 @@
 	</div>
 	{% endfor %}
 	</div>
-	{% if pageId - 1 > 0 %}
-	<a href="{{ url_for('explore', pageId = pageId - 1)}}" class="btn btn-primary">Назад</a>
+	{% if page_id - 1 > 0 %}
+	<a href="{{ url_for('explore', page_id = page_id - 1)}}" class="btn btn-primary">Назад</a>
 	{% else %}
 	<a class="btn btn-secondary">Назад</a>
 	{% endif %}
-	<a class="btn btn-secondary">{{ pageId }}</a>
-	{% if numberOfpages > pageId %}
-	<a href="{{ url_for('explore', pageId = pageId + 1)}}" class="btn btn-primary">Вперед</a>
+	<a class="btn btn-secondary">{{ page_id }}</a>
+	{% if number_of_pages > page_id %}
+	<a href="{{ url_for('explore', page_id = page_id + 1)}}" class="btn btn-primary">Вперед</a>
 	{% else %}
 	<a class="btn btn-secondary">Вперед</a>
 	{% endif %}

@@ -5,9 +5,9 @@
 <div class="container">
 	{% if session["username"]: %}
 
-	{% if errorText|length != 0 %}
+	{% if error_text|length != 0 %}
 	<div class="alert alert-info" role="alert">
-		{{ errorText }}
+		{{ error_text }}
 	</div>
 	{% endif %}
 	  

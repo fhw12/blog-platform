@@ -7,9 +7,9 @@
 			<input class="form-control" type="text" name="username" placeholder="Логин"><br>
 			<input class="form-control" type="password" name="password" placeholder="Пароль"><br>
 
-			{% if errorText|length > 0 %}
+			{% if error_text|length > 0 %}
 			<div class="alert alert-danger" role="alert">
-				{{ errorText }}
+				{{ error_text }}
 			</div>
 			{% endif %}
 

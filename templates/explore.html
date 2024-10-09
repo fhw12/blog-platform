@@ -24,7 +24,7 @@
 		<a class="btn btn-secondary">Назад</a>
         {% endif %}
         <a class="btn btn-secondary">{{ pageId }}</a>
-        {% if numberOfpages > pageId %}
+        {% if number_of_pages > pageId %}
 		<a href="{{ url_for('explore', pageId = pageId + 1)}}" class="btn btn-primary">Вперед</a>
 		{% else %}
 		<a class="btn btn-secondary">Вперед</a>

@@ -8,9 +8,9 @@
 			<input class="form-control" type="password" name="password" placeholder="Пароль" minlength="8" required><br>
 			<input class="form-control" type="password" name="repeatpassword" placeholder="Придумайте пароль" minlength="8" required><br>
 
-			{% if errorText|length > 0 %}
+			{% if error_text|length > 0 %}
 			<div class="alert alert-danger" role="alert">
-				{{ errorText }}
+				{{ error_text }}
 			</div>
 			{% endif %}
 
