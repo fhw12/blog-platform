@@ -7,7 +7,6 @@ from hashlib import sha256
 engine = create_engine('sqlite:///main.db')
 Base.metadata.create_all(engine)
 
-
 # user
 def add_user(username: str, password: str, role: str):
     with Session(engine) as session:
@@ -124,9 +123,9 @@ def add_comment(post_id: str, content: str, creator_id: int):
     with Session(engine) as session:
         session.add(
             Comment(
-                postId=post_id,
+                post_id=post_id,
                 content=content,
-                creatorId=creator_id,
+                creator_id=creator_id,
             )
         )
         session.commit()
@@ -136,7 +135,7 @@ def get_comments_by_post_id(post_id: int):
     with Session(engine) as session:
         return session.scalars(
             select(Comment)
-                .where(Comment.postId == post_id)
+                .where(Comment.post_id == post_id)
                 .order_by(desc(Comment.id))
         ).all()
 

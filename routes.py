@@ -8,6 +8,10 @@ class Routes:
         self.app = app
         self.create_routes()
 
+        print(queries.get_user_by_username('admin').username)
+        if not queries.get_user_by_username('admin'):
+            queries.add_user('admin', 'adminpassword', 'admin')
+
     def create_routes(self):
         @self.app.route('/')
         def index():
@@ -38,8 +42,8 @@ class Routes:
             postComments = queries.get_comments_by_post_id(post_id=postId)
             comments = []
             for item in postComments:
-                author = queries.get_user_by_id(item.creatorId).username
-                comments.append((item.id, item.postId, item.content, author))
+                author = queries.get_user_by_id(item.creator_id).username
+                comments.append((item.id, item.post_id, item.content, author))
             return render_template(
                 'post.html',
                 post = post,

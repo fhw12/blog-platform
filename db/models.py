@@ -27,6 +27,6 @@ class Comment(Base):
     __tablename__ = 'comments'
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    postId: Mapped[int] = mapped_column(Integer)
+    post_id: Mapped[int] = mapped_column(Integer)
     content: Mapped[str] = mapped_column(String())
-    creatorId: Mapped[int] = mapped_column(Integer)
+    creator_id: Mapped[int] = mapped_column(Integer)
