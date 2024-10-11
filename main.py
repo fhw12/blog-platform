@@ -51,7 +51,7 @@ def auth():
 
 
 @app.route("/createAccount")
-def createAccount():
+def create_account():
     return render_template("createAccount.html", error_text="")
 
 
@@ -94,7 +94,7 @@ def login():
 
 
 @app.route("/changePassword", methods=["POST"])
-def changePassword():
+def change_password():
     username: str = session["username"]
     password: str = request.form["password"]
     new_password = request.form["newpassword"]
@@ -122,12 +122,12 @@ def logout():
 
 
 @app.route("/newPost")
-def newPost():
+def new_post():
     return render_template("newPost.html")
 
 
 @app.route("/sendNewPost", methods=["POST"])
-def sendNewPost():
+def send_new_post():
     if session["role"] != "admin":
         return "Доступ запрещен!"
     title: str = request.form["title"]
@@ -140,7 +140,7 @@ def sendNewPost():
 
 
 @app.route("/sendNewComment/<int:post_id>", methods=["POST"])
-def sendNewComment(post_id):
+def send_new_comment(post_id):
     content: str = request.form["content"]
     if "username" in session:
         user_id: int = queries.get_user_by_username(session["username"]).id
@@ -151,7 +151,7 @@ def sendNewComment(post_id):
 
 
 @app.route("/deletePost/<int:post_id>")
-def deletePost(post_id):
+def delete_post(post_id):
     if "role" in session:
         if session["role"] != "admin":
             return "Доступ запрещен!"
@@ -162,7 +162,7 @@ def deletePost(post_id):
 
 
 @app.route("/editPost/<int:post_id>")
-def editPost(post_id):
+def edit_post(post_id):
     if "role" in session:
         if session["role"] != "admin":
             return "Доступ запрещен!"
@@ -174,7 +174,7 @@ def editPost(post_id):
 
 
 @app.route("/sendEditPost/<int:post_id>", methods=["POST"])
-def sendEditPost(post_id):
+def send_edit_post(post_id):
     if "role" in session:
         if session["role"] != "admin":
             return "Доступ запрещен!"
