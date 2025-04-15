@@ -15,3 +15,26 @@ pip install sqlalchemy
 pip3 install flask
 pip3 install sqlalchemy
 ```
+
+## Скриншоты
+### Главная страница (без постов)
+<img src="./screenshots/empty.png">
+
+### Вход в аккаунт
+<img src="./screenshots/login.png">
+
+### Создание аккаунта
+<img src="./screenshots/signup.png">
+
+### Новый пост
+<img src="./screenshots/newpost.png">
+
+### Главная страница
+<img src="./screenshots/posts.png">
+
+### Пост
+<img src="./screenshots/firstpost.png">
+
+### Профиль
+<img src="./screenshots/profile.png">
+
